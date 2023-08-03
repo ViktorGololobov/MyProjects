@@ -17,34 +17,14 @@ all_strings = ""
 count = 0
 
 
-def flight(value):
-    count = 0
-    for _ in value:
-        count += 1
-    if count != 4:
-        return False
-    else:
-        return True
-
-
-def date(value):
-    count = 0
-    for _ in value:
-        count += 1
-    if count != 10:
-        return False
-    else:
-        return True
-
-
-def time(value):
-    count = 0
-    for _ in value:
-        count += 1
-    if count != 5:
-        return False
-    else:
-        return True
+def length_validate(value, valid_length):
+  count = 0
+  for _ in value:
+    count += 1
+  if count != valid_length:
+    return False
+  else:
+    return True
 
 
 def in_out_airport(value):
@@ -66,15 +46,15 @@ def string_delimiter(long_string):
         main_string += i
         if count == 4:
             main_string += ' '
-        if count == 14:
+        elif count == 14:
             main_string += ' '
-        if count == 19:
+        elif count == 19:
             main_string += ' '
-        if count == 24:
+        elif count == 24:
             main_string += ' '
-        if count == 27:
+        elif count == 27:
             main_string += ' '
-        if count == 30:
+        elif count == 30:
             main_string += ' '
     return main_string + "*"
 
@@ -127,8 +107,9 @@ while choice != 0:
         print("Введите данные рейса: ")
 
         flight_number = input("ХХХХ - номер рейса: ")
+        length = 4
 
-        while flight(flight_number) == False:
+        while length_validate(flight_number, length) == False:
             flight_number = input("Номер рейса состоит из четырёх символов."
                                   "\nВведите его повторно, так как было введено"
                                   "\nбольшее или меньшее количество допустимых символов: ")
@@ -136,8 +117,9 @@ while choice != 0:
             string += flight_number.upper()
 
         flight_date = input("ДД/ММ/ГГГГ - дата рейса: ")
+        length = 10
 
-        while date(flight_date) == False:
+        while length_validate(flight_date, length) == False:
             flight_date = input("Дата рейса состоит из десяти символов."
                                 "\nВведите её повторно, так как было введено"
                                 "\nбольшее или меньшее количество допустимых символов: ")
@@ -145,8 +127,9 @@ while choice != 0:
             string += flight_date
 
         departure_time = input("ЧЧ:ММ - время вылета: ")
+        length = 5
 
-        while time(departure_time) == False:
+        while length_validate(departure_time, length) == False:
             departure_time = input("Время рейса состоит из пяти символов."
                                    "\nВведите его повторно, так как было введено"
                                    "\nбольшее или меньшее количество допустимых символов: ")
@@ -154,17 +137,19 @@ while choice != 0:
             string += departure_time
 
         flight_time = input("ЧЧ.ММ - время перелета: ")
+        length = 5
 
-        while time(flight_time) == False:
-            departure_time = input("Время рейса состоит из пяти символов."
+        while length_validate(flight_time, length) == False:
+            flight_time = input("Время рейса состоит из пяти символов."
                                    "\nВведите его повторно, так как было введено"
                                    "\nбольшее или меньшее количество допустимых символов: ")
         else:
             string += flight_time
 
         airport_depo = input("XXX - аэропорт вылета: ")
+        length = 3
 
-        while in_out_airport(airport_depo) == False:
+        while length_validate(airport_depo, length) == False:
             airport_depo = input("Аэропорт вылета состоит из трех символов."
                                  "\nВведите его повторно, так как было введено"
                                  "\nбольшее или меньшее количество допустимых символов: ")
@@ -172,6 +157,7 @@ while choice != 0:
             string += airport_depo.upper()
 
         airport_arvl = input("XXX - аэропорт прилёта: ")
+        length = 3
 
         while in_out_airport(airport_arvl) == False:
             airport_arvl = input("Аэропорт прилета состоит из трех символов."
