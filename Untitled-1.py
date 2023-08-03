@@ -9,14 +9,6 @@ def main_menu():
            "\n0 - завершение работы\n"
 
 
-print(main_menu())
-choice = int(input("Введите номер пункта меню: "))
-
-string = ""
-all_strings = ""
-count = 0
-
-
 def length_validate(value, valid_length):
   count = 0
   for _ in value:
@@ -101,7 +93,14 @@ def one_way_ticket(user_number, all_races):
     return result
 
 
-while choice != 0:
+print(main_menu())
+choice = int(input("Введите номер пункта меню: "))
+
+string = ""
+all_strings = ""
+count = 0
+
+while True:
     string = ""
     if choice == 1:
         print("Введите данные рейса: ")
@@ -180,16 +179,10 @@ while choice != 0:
             print(f"Информация о рейсе {string_delimiter(string)} добавлена")
         else:
             print("Введенный рейс уже есть в списке")
-
-        print(main_menu())
-        choice = int(input("Введите номер пункта меню: "))
     elif choice == 2:
         this_flying = ""
 
         all_flights_show(all_strings, this_flying)
-
-        print(main_menu())
-        choice = int(input("Введите номер пункта меню: "))
     elif choice == 3:
         user_flying = input("Введите номер рейса: ")
         result = one_way_ticket(user_flying, all_strings)
@@ -198,12 +191,10 @@ while choice != 0:
             print("Рейс не найден\n")
         else:
             print(result)
-
-        print(main_menu())
-        choice = int(input("Введите номер пункта меню: "))
     elif choice == 0:
+        print("Работа завершена.")
         break
     else:
         print("Такой команды не существует. Пожалуйста, введите одну из следующих команд:")
-        print(main_menu())
-        choice = int(input("Введите номер пункта меню: "))
+    print(main_menu())
+    choice = int(input("Введите номер пункта меню: "))
