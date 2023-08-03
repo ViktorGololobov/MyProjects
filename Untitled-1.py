@@ -93,14 +93,13 @@ def one_way_ticket(user_number, all_races):
     return result
 
 
-print(main_menu())
-choice = int(input("Введите номер пункта меню: "))
-
 string = ""
 all_strings = ""
 count = 0
 
 while True:
+    print(main_menu())
+    choice = int(input("Введите номер пункта меню: "))
     string = ""
     if choice == 1:
         print("Введите данные рейса: ")
@@ -196,5 +195,3 @@ while True:
         break
     else:
         print("Такой команды не существует. Пожалуйста, введите одну из следующих команд:")
-    print(main_menu())
-    choice = int(input("Введите номер пункта меню: "))
