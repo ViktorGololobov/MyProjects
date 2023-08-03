@@ -1,138 +1,223 @@
-print("Сервис поиска авиабилетов\n"
-        "\nГлавное меню:\n"
-        "\n1 - ввод рейса"
-        "\n2 - вывод всех рейсов"
-        "\n3 - поиск рейса по номеру"
-        "\n0 - завершение работы\n")
+print("Сервис поиска авиабилетов")
+
+
+def main_menu():
+    return "\nГлавное меню:\n" \
+           "\n1 - ввод рейса" \
+           "\n2 - вывод всех рейсов" \
+           "\n3 - поиск рейса по номеру" \
+           "\n0 - завершение работы\n"
+
+
+print(main_menu())
 choice = int(input("Введите номер пункта меню: "))
 
-if choice == 1:
+string = ""
+all_strings = ""
+count = 0
 
+
+def flight(value):
+    count = 0
+    for _ in value:
+        count += 1
+    if count != 4:
+        return False
+    else:
+        return True
+
+
+def date(value):
+    count = 0
+    for _ in value:
+        count += 1
+    if count != 10:
+        return False
+    else:
+        return True
+
+
+def time(value):
+    count = 0
+    for _ in value:
+        count += 1
+    if count != 5:
+        return False
+    else:
+        return True
+
+
+def in_out_airport(value):
+    count = 0
+    for _ in value:
+        count += 1
+    if count != 3:
+        return False
+    else:
+        return True
+
+
+def string_delimiter(long_string):
+    count = 0
+    main_string = ''
+
+    for i in long_string:
+        count += 1
+        main_string += i
+        if count == 4:
+            main_string += ' '
+        if count == 14:
+            main_string += ' '
+        if count == 19:
+            main_string += ' '
+        if count == 24:
+            main_string += ' '
+        if count == 27:
+            main_string += ' '
+        if count == 30:
+            main_string += ' '
+    return main_string + "*"
+
+
+def uniq_flight_check(long_string, all_flights):
+    if string_delimiter(long_string) in all_flights:
+        return False
+    else:
+        return True
+
+
+def all_flights_show(all_planes, one_of_flying):
+    for all_flyings in all_planes:
+        one_of_flying += all_flyings
+        if all_flyings == "*":
+            print("Информация о рейсе:", one_of_flying)
+            one_of_flying = ""
+
+
+def get_number_from_race_inf(user_number, race_inf):
+    flying_ticket = ""
+    for symbol in race_inf:
+        if symbol == " ":
+            return flying_ticket == user_number
+        flying_ticket += symbol
+    return False
+
+
+def one_way_ticket(user_number, all_races):
+    result = ""
+    flight = ""
+    for symbol in all_races:
+        flight += symbol
+        if symbol == "*":
+            if get_number_from_race_inf(user_number, flight):
+                result += "Информация о рейсе: "
+                result += flight
+                result += '\n'
+                flight = ""
+                continue
+            else:
+                flight = ""
+                continue
+    return result
+
+
+while choice != 0:
     string = ""
+    if choice == 1:
+        print("Введите данные рейса: ")
 
-    def flight(value):
-        count = 0
-        for _ in value:
-            count += 1
-        if count != 4:
-            return False
+        flight_number = input("ХХХХ - номер рейса: ")
+
+        while flight(flight_number) == False:
+            flight_number = input("Номер рейса состоит из четырёх символов."
+                                  "\nВведите его повторно, так как было введено"
+                                  "\nбольшее или меньшее количество допустимых символов: ")
         else:
-            return True
+            string += flight_number.upper()
 
+        flight_date = input("ДД/ММ/ГГГГ - дата рейса: ")
 
-    flight_number = input("ХХХХ - номер рейса: ")
-
-    while flight(flight_number) == False:
-        flight_number = input("Номер рейса состоит из четырёх символов."
-                       "\nВведите его повторно, так как было введено"
-                       "\nбольшее или меньшее количество допустимых символов: ")
-    else:
-        string += flight_number.upper()
-
-    def date(value):
-        count = 0
-        for _ in value:
-            count += 1
-        if count != 10:
-            return False
+        while date(flight_date) == False:
+            flight_date = input("Дата рейса состоит из десяти символов."
+                                "\nВведите её повторно, так как было введено"
+                                "\nбольшее или меньшее количество допустимых символов: ")
         else:
-            return True
+            string += flight_date
 
+        departure_time = input("ЧЧ:ММ - время вылета: ")
 
-    flight_date = input("ДД/ММ/ГГГГ - дата рейса: ")
-
-    while date(flight_date) == False:
-        flight_date = input("Дата рейса состоит из десяти символов."
-                            "\nВведите её повторно, так как было введено"
-                            "\nбольшее или меньшее количество допустимых символов: ")
-    else:
-        string += flight_date
-
-    def time(value):
-        count = 0
-        for _ in value:
-            count += 1
-        if count != 5:
-            return False
+        while time(departure_time) == False:
+            departure_time = input("Время рейса состоит из пяти символов."
+                                   "\nВведите его повторно, так как было введено"
+                                   "\nбольшее или меньшее количество допустимых символов: ")
         else:
-            return True
+            string += departure_time
 
+        flight_time = input("ЧЧ.ММ - время перелета: ")
 
-    departure_time = input("ЧЧ:ММ - время вылета: ")
-
-    while time(departure_time) == False:
-        departure_time = input("Время рейса состоит из пяти символов."
-                               "\nВведите его повторно, так как было введено"
-                               "\nбольшее или меньшее количество допустимых символов: ")
-    else:
-        string += departure_time
-
-    flight_time = input("ЧЧ.ММ - время перелета: ")
-
-    while time(flight_time) == False:
-        departure_time = input("Время рейса состоит из пяти символов."
-                               "\nВведите его повторно, так как было введено"
-                               "\nбольшее или меньшее количество допустимых символов: ")
-    else:
-        string += flight_time
-
-    def in_out_airport(value):
-        count = 0
-        for _ in value:
-            count += 1
-        if count != 3:
-            return False
+        while time(flight_time) == False:
+            departure_time = input("Время рейса состоит из пяти символов."
+                                   "\nВведите его повторно, так как было введено"
+                                   "\nбольшее или меньшее количество допустимых символов: ")
         else:
-            return True
+            string += flight_time
 
+        airport_depo = input("XXX - аэропорт вылета: ")
 
-    airport_depo = input("XXX - аэропорт вылета: ")
+        while in_out_airport(airport_depo) == False:
+            airport_depo = input("Аэропорт вылета состоит из трех символов."
+                                 "\nВведите его повторно, так как было введено"
+                                 "\nбольшее или меньшее количество допустимых символов: ")
+        else:
+            string += airport_depo.upper()
 
-    while in_out_airport(airport_depo) == False:
-        departure_time = input("Время рейса состоит из пяти символов."
-                               "\nВведите его повторно, так как было введено"
-                               "\nбольшее или меньшее количество допустимых символов: ")
+        airport_arvl = input("XXX - аэропорт прилёта: ")
+
+        while in_out_airport(airport_arvl) == False:
+            airport_arvl = input("Аэропорт прилета состоит из трех символов."
+                                 "\nВведите его повторно, так как было введено"
+                                 "\nбольшее или меньшее количество допустимых символов: ")
+        else:
+            string += airport_arvl.upper()
+
+        price = input(".ХХ - стоимость билета (> 0): ")
+        minus = "-"
+
+        while minus in price:
+            price = input("Стоимость билета не может быть отрицательной."
+                          "\nВведите её повторно: ")
+        else:
+            string += price
+
+        if uniq_flight_check(string, all_strings) == True:
+            all_strings += string_delimiter(string)
+            print(f"Информация о рейсе {string_delimiter(string)} добавлена")
+        else:
+            print("Введенный рейс уже есть в списке")
+
+        print(main_menu())
+        choice = int(input("Введите номер пункта меню: "))
+    elif choice == 2:
+        this_flying = ""
+
+        all_flights_show(all_strings, this_flying)
+
+        print(main_menu())
+        choice = int(input("Введите номер пункта меню: "))
+    elif choice == 3:
+        user_flying = input("Введите номер рейса: ")
+        result = one_way_ticket(user_flying, all_strings)
+
+        if result == "":
+            print("Рейс не найден\n")
+        else:
+            print(result)
+
+        print(main_menu())
+        choice = int(input("Введите номер пункта меню: "))
+    elif choice == 0:
+        break
     else:
-        string += airport_depo.upper()
-
-    airport_arvl = input("XXX - аэропорт прилёта: ")
-
-    while in_out_airport(airport_arvl) == False:
-        departure_time = input("Время рейса состоит из пяти символов."
-                               "\nВведите его повторно, так как было введено"
-                               "\nбольшее или меньшее количество допустимых символов: ")
-    else:
-        string += airport_arvl.upper()
-
-    price = input(".ХХ - стоимость билета (> 0): ")
-    minus = "-"
-
-    while minus in price:
-        price = input("Стоимость билета не может быть отрицательной."
-                            "\nВведите её повторно: ")
-    else:
-        string += price
-
-
-    def string_delimiter(long_string):
-        count = 0
-        main_string = ''
-
-        for i in long_string:
-            count += 1
-            main_string += i
-            if count == 4:
-                main_string += ' '
-            if count == 14:
-                main_string += ' '
-            if count == 19:
-                main_string += ' '
-            if count == 24:
-                main_string += ' '
-            if count == 27:
-                main_string += ' '
-            if count == 30:
-                main_string += ' '
-        return main_string
-
-    print(f"Информация о рейсе {string_delimiter(string)} добавлена")
+        print("Такой команды не существует. Пожалуйста, введите одну из следующих команд:")
+        print(main_menu())
+        choice = int(input("Введите номер пункта меню: "))
